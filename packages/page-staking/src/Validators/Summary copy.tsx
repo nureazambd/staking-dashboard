@@ -27,49 +27,6 @@ function Summary ({ className = '', stakingOverview, targets: { counterForNomina
   return (
     <StyledSummaryBox className={className}>
       {/* <span style={{ background:"#2d292d"}}> */}
-
-      <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-  <div className="p-6 flex">
-  <CardSummary label={t('validators')}>
-          {stakingOverview
-            ? <>{formatNumber(stakingOverview.validators.length)}&nbsp;/&nbsp;{formatNumber(stakingOverview.validatorCount)}</>
-            : <span className='--tmp'>999 / 999</span>
-          }
-        </CardSummary>
-        
-        <CardSummary
-          className='media--900'
-          label={t('waiting')}
-        >
-          {waitingIds
-            ? formatNumber(waitingIds.length)
-            : <span className='--tmp'>99</span>
-          }
-        </CardSummary>
-        
-        <CardSummary
-          className='media--1000'
-          label={
-            counterForNominators
-              ? t('active / nominators')
-              : t('nominators')
-          }
-        >
-          
-          {nominators
-            ? (
-              <>
-                {formatNumber(nominators.length)}
-                {counterForNominators && (
-                  <>&nbsp;/&nbsp;{formatNumber(counterForNominators)}</>
-                )}
-              </>
-            )
-            : <span className='--tmp'>999 / 999</span>
-          }
-        </CardSummary>
-  </div>
-</div>
       <section style={{ background:"#C0C0C0", color:"#000000", borderRadius:"10px", padding:"25px"}}>
         {/* <CardSummary label={t('validators')}> */}
         <CardSummary label={t('validators')}>

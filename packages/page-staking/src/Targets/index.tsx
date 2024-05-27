@@ -366,7 +366,7 @@ function Targets ({ className = '', isInElection, nominatedBy, ownStashes, targe
 
   return (
     <StyledDiv className={className}>
-    <div style={{marginTop:"25px",marginBottom:"20px", font:"18px", fontSize:"24px", fontWeight:900, textAlign:"left"}}>Validators</div>
+    <div style={{marginTop:"120px",marginBottom:"20px", font:"18px", fontSize:"24px", fontWeight:900, textAlign:"left"}}>Validators</div>
 
       {/* <StakingSummary/> */}
 

@@ -155,7 +155,7 @@ function Actions ({ className = '', isInElection, minCommission, ownPools, ownSt
 
   return (
     <div className={className}>
-      <div style={{marginTop:"25px",marginBottom:"25px", font:"18px", fontSize:"24px", fontWeight:900}}>Nominate</div>
+      <div style={{marginTop:"120px",marginBottom:"25px", font:"18px", fontSize:"24px", fontWeight:900}}>Nominate</div>
       {/* <div style={{ background:"#C0C0C0", borderRadius:"10px", padding:"25px"}}> */}
       <div style={{ background:"#C0C0C0", color:"#000000", borderRadius:"10px", padding:"25px"}}>
       <Button.Group>  

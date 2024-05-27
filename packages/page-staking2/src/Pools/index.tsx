@@ -23,7 +23,7 @@ function NominationPools ({ className, ownPools: ownPoolProp }: Props): React.Re
 
   return (
     <div className={className}>
-      <div style={{marginTop:"25px", font:"18px", fontSize:"24px", fontWeight:900}}>Pools</div>
+      <div style={{marginTop:"120px", font:"18px", fontSize:"24px", fontWeight:900}}>Pools</div>
       <Summary
         params={params}
         poolCount={ids?.length}

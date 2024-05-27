@@ -224,7 +224,7 @@ function Payouts ({ className = '', historyDepth, isInElection, ownPools, ownVal
 
   return (
     <StyledDiv className={className}>
-      <div style={{marginTop:"25px", marginBottom:"25px", font:"18px", fontSize:"24px", fontWeight:900}}>Payouts</div>
+      <div style={{marginTop:"120px", marginBottom:"25px", font:"18px", fontSize:"24px", fontWeight:900}}>Payouts</div>
       {/* <div style={{background:"#C0C0C0", borderRadius:"10px", padding:"10px"}}> */}
       <div style={{background:"#C0C0C0", color:"black", borderRadius:"10px", padding:"20px"}}>
 

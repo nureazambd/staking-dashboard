@@ -85,7 +85,7 @@ function Selection ({ defaultValue }: Props): React.ReactElement<Props> {
 
   return (
     // <div className={className}>
-    <div style={{ maxWidth: '600px', marginTop: '120px', padding: '20px', background: '#f9f9f9', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
+    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', background: '#f9f9f9', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
     {/* // <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', background: '#C0C0C0', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>  */}
     <h2 style={{ textAlign: 'center', color: '#333' }}>Submit Staking Transaction</h2>
       {/* <div style={{ padding:'30px', paddingTop:'60px'}}>

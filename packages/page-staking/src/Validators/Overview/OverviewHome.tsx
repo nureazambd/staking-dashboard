@@ -1,116 +1,81 @@
-// Copyright 2017-2024 @polkadot/app-staking authors & contributors
-// SPDX-License-Identifier: Apache-2.0
-import type { DeriveHeartbeats, DeriveStakingOverview } from '@polkadot/api-derive/types';
-import type { StakerState } from '@polkadot/react-hooks/types';
-import type { BN } from '@polkadot/util';
-import type { NominatedByMap, SortedTargets } from '../types.js';
+import React from 'react'
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-
-import { Button, ToggleGroup } from '@polkadot/react-components';
-import { useApi, useBlockAuthors, useCall } from '@polkadot/react-hooks';
-
-import { useTranslation } from '../translate.js';
-import ActionsBanner from './ActionsBanner.js';
-import CurrentList from './CurrentList.js';
-import Summary from './Summary.js';
-
-import PoolSummary from './PoolSummary.js';
-import type { ActionStatus } from '@polkadot/react-components/Status/types';
-// import PayoutsUI from './PayoutUi.js';
-import BalanceSummary from '../overview-balance/Accounts/BalanceSummary.js';
-import Payouts from '../Payouts/index.js';
-import OverviewHome from './Overview/OverviewHome.js';
-
-
-
-
-
-
-interface Props {
-  className?: string;
-  favorites: string[];
-  hasAccounts: boolean;
-  hasQueries: boolean;
-  minCommission?: BN;
-  nominatedBy?: NominatedByMap;
-  ownStashes?: StakerState[];
-  paraValidators?: Record<string, boolean>;
-  stakingOverview?: DeriveStakingOverview;
-  targets: SortedTargets;
-  toggleFavorite: (address: string) => void;
-  toggleLedger?: () => void;
-  toggleNominatedBy: () => void;
-}
-
-interface Props {
-  className?: string;
-  onStatusChange: (status: ActionStatus) => void;
-}
-
-const EMPTY_PARA_VALS: Record<string, boolean> = {};
-const EMPTY_BY_AUTHOR: Record<string, string> = {};
-const EMPTY_ERA_POINTS: Record<string, string> = {};
-
-function Overview ({ className = '', favorites, hasAccounts, hasQueries, minCommission, nominatedBy, ownStashes, paraValidators, stakingOverview, targets, toggleFavorite, toggleLedger, toggleNominatedBy, onStatusChange }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation();
-  const { api } = useApi();
-  const { byAuthor, eraPoints } = useBlockAuthors();
-  const [intentIndex, _setIntentIndex] = useState(0);
-  const [typeIndex, setTypeIndex] = useState(1);
-  const recentlyOnline = useCall<DeriveHeartbeats>(api.derive.imOnline?.receivedHeartbeats);
-
-  const setIntentIndex = useCallback(
-    (index: number): void => {
-      index && toggleNominatedBy();
-      _setIntentIndex(index);
-    },
-    [toggleNominatedBy]
-  );
-
-  const filterOptions = useRef([
-    { text: t('Own validators'), value: 'mine' },
-    { text: t('All validators'), value: 'all' }
-  ]);
-
-  const intentOptions = useRef([
-    { text: t('Active'), value: 'active' },
-    { text: t('Waiting'), value: 'waiting' }
-  ]);
-
-  const ownStashIds = useMemo(
-    () => ownStashes?.map(({ stashId }) => stashId),
-    [ownStashes]
-  );
-
-  useEffect((): void => {
-    toggleLedger && toggleLedger();
-  }, [toggleLedger]);
-
-  const isOwn = typeIndex === 0;
-  // const params = useParams();
-  // const ids = usePoolIds();
-
-
-
+export default function OverviewHome() {
   return (
-    <div className={`${className} staking--Overview`}>
-      <div style={{marginTop:"120px", font:"18px", fontSize:"24px", fontWeight:900}}>Overview</div>
-      <Summary
-        stakingOverview={stakingOverview}
-        targets={targets}
-      />
-      {hasAccounts && (ownStashes?.length === 0) && (
-        <ActionsBanner />
-      )}
-
-{/* balance and payment */}
-<section className="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
+    <div>
+        <main className="p-6 sm:p-10 space-y-6">
+      <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+        <div className="mr-6">
+          <h1 className="text-4xl font-semibold mb-2">Dashboard</h1>
+          <h2 className="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2>
+        </div>
+        <div className="flex flex-wrap items-start justify-end -mb-3">
+          <button className="inline-flex px-5 py-3 text-blue-600 hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 border border-blue-600 rounded-md mb-3">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            Manage dashboard
+          </button>
+          <button className="inline-flex px-5 py-3 text-white bg-blue-600 hover:bg-purple-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            Create new dashboard
+          </button>
+        </div>
+      </div>
+      <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <div>
+            <span className="block text-2xl font-bold">62</span>
+            <span className="block text-gray-500">Students</span>
+          </div>
+        </div>
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <div>
+            <span className="block text-2xl font-bold">6.8</span>
+            <span className="block text-gray-500">Average mark</span>
+          </div>
+        </div>
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+            </svg>
+          </div>
+          <div>
+            <span className="inline-block text-2xl font-bold">9</span>
+            <span className="inline-block text-xl text-gray-500 font-semibold">(14%)</span>
+            <span className="block text-gray-500">Underperforming students</span>
+          </div>
+        </div>
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div>
+            <span className="block text-2xl font-bold">83%</span>
+            <span className="block text-gray-500">Finished homeworks</span>
+          </div>
+        </div>
+      </section>
+      <section className="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
         <div className="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-          <div className="px-6 py-5 font-semibold border-b border-gray-100">Balance</div>
+          <div className="px-6 py-5 font-semibold border-b border-gray-100">The number of applied and left students per month</div>
           <div className="p-4 flex-grow">
-            {/* <div className="flex items-center justify-center h-full px-4 py-16 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">Chart</div> */}
-            <BalanceSummary onStatusChange={onStatusChange}/>
+            <div className="flex items-center justify-center h-full px-4 py-16 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">Chart</div>
           </div>
         </div>
         <div className="flex items-center p-8 bg-white shadow rounded-lg">
@@ -139,9 +104,9 @@ function Overview ({ className = '', favorites, hasAccounts, hasQueries, minComm
         </div>
         <div className="row-span-3 bg-white shadow rounded-lg">
           <div className="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
-            <span>Payouts</span>
+            <span>Students by average mark</span>
             <button type="button" className="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
-              AGC
+              Descending
               <svg className="-mr-1 ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
               </svg>
@@ -210,54 +175,16 @@ function Overview ({ className = '', favorites, hasAccounts, hasQueries, minComm
           </div>
         </div>
         <div className="flex flex-col row-span-3 bg-white shadow rounded-lg">
-          <div className="px-6 py-5 font-semibold border-b border-gray-100">Payouts</div>
+          <div className="px-6 py-5 font-semibold border-b border-gray-100">Students by type of studying</div>
           <div className="p-4 flex-grow">
             <div className="flex items-center justify-center h-full px-4 py-24 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">Chart</div>
           </div>
         </div>
       </section>
-      
-
-      <PoolSummary/>
-     
-
-      <Button.Group>
-        <ToggleGroup
-          onChange={setTypeIndex}
-          options={filterOptions.current}
-          value={typeIndex}
-        />
-        <ToggleGroup
-          onChange={setIntentIndex}
-          options={intentOptions.current}
-          value={intentIndex}
-        />
-      </Button.Group>
-
-      {/* <Summary2  params={params}
-        poolCount={ids?.length}/> */}
-
-        {/* <PoolsOverview/> */}
-      
-      <CurrentList
-        byAuthor={intentIndex === 0 ? byAuthor : EMPTY_BY_AUTHOR}
-        eraPoints={intentIndex === 0 ? eraPoints : EMPTY_ERA_POINTS}
-        favorites={favorites}
-        hasQueries={hasQueries}
-        isIntentions={intentIndex === 1}
-        isOwn={isOwn}
-        key={intentIndex}
-        minCommission={intentIndex === 0 ? minCommission : undefined}
-        nominatedBy={intentIndex === 1 ? nominatedBy : undefined}
-        ownStashIds={ownStashIds}
-        paraValidators={(intentIndex === 0 && paraValidators) || EMPTY_PARA_VALS}
-        recentlyOnline={intentIndex === 0 ? recentlyOnline : undefined}
-        stakingOverview={stakingOverview}
-        targets={targets}
-        toggleFavorite={toggleFavorite}
-      />
+      <section className="text-right font-semibold text-gray-500">
+        <a href="#" className="text-blue-600 hover:underline">Recreated on Codepen</a> with <a href="https://tailwindcss.com/" className="text-teal-400 hover:underline">Tailwind CSS</a> by Sinan AYDOĞAN, <a href="https://dribbble.com/shots/10711741-Free-UI-Kit-for-Figma-Online-Courses-Dashboard" className="text-blue-600 hover:underline">original design</a> made by Chili Labs and <a href="https://codepen.io/azrikahar/pen/abZzaga"  className="text-blue-600 hover:underline" target="_blank">abZzaga</a>
+      </section>
+    </main>
     </div>
-  );
+  )
 }
-
-export default React.memo(Overview);

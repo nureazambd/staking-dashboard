@@ -7,6 +7,23 @@
     <link rel="shortcut icon" href="favicon.ico">
     <title><%= htmlWebpackPlugin.options.PAGE_TITLE %></title>
     <script type="text/javascript" src="env-config.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      a {
+          color: white!important; /* Tailwind's blue-500 */
+      }
+      a:hover {
+          color: white!important; 
+      }
+      /* a:active {
+          color: white !important;
+          background-color: gray !important;
+      } */
+      /* a:hover {
+          color: white!important; 
+          background-color: gray; 
+      } */
+  </style>
     <style>
       :root {
         --font-mono: 0.889em Consolas, monaco, "Ubuntu Mono", "Liberation Mono", "Courier New", Courier, monospace;
@@ -134,6 +151,6 @@
         window.top.location.href = window.location.href;
       }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   </body>
 </html>

@@ -25,20 +25,33 @@ function Summary ({ className = '', stakingOverview, targets: { counterForNomina
   const percent = <span className='percent'>%</span>;
 
   return (
-    <StyledSummaryBox className={className}>
-      {/* <span style={{ background:"#2d292d"}}> */}
-      {/* validators waiting active / nominators */}
-      <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-  <div className="p-6 flex">
-  <CardSummary label={t('validators')}>
+    <>
+      {/* Validators waitng and active/nomijnators section */}
+      <section className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <div>
+          <CardSummary label={t('validators')}>
           {stakingOverview
             ? <>{formatNumber(stakingOverview.validators.length)}&nbsp;/&nbsp;{formatNumber(stakingOverview.validatorCount)}</>
             : <span className='--tmp'>999 / 999</span>
           }
         </CardSummary>
-        
-        <CardSummary
-          className='media--900'
+          </div>
+        </div>
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <div>
+          <CardSummary
+          
           label={t('waiting')}
         >
           {waitingIds
@@ -46,9 +59,17 @@ function Summary ({ className = '', stakingOverview, targets: { counterForNomina
             : <span className='--tmp'>99</span>
           }
         </CardSummary>
-
-        <CardSummary
-          className='media--1000'
+          </div>
+        </div>
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+            </svg>
+          </div>
+          <div>
+          <CardSummary
+          
           label={
             counterForNominators
               ? t('active / nominators')
@@ -68,79 +89,58 @@ function Summary ({ className = '', stakingOverview, targets: { counterForNomina
             : <span className='--tmp'>999 / 999</span>
           }
         </CardSummary>
-  </div>
-</div>
-
-
-
-
-
-
-<a href="#_" className="relative inline-flex items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group">
-<span className="absolute top-0 left-0 w-40 h-40 -mt-10 -ml-3 transition-all duration-700 bg-red-500 rounded-full blur-md ease"></span>
-<span className="absolute inset-0 w-full h-full transition duration-700 group-hover:rotate-180 ease">
-<span className="absolute bottom-0 left-0 w-24 h-24 -ml-10 bg-purple-500 rounded-full blur-md"></span>
-<span className="absolute bottom-0 right-0 w-24 h-24 -mr-10 bg-pink-500 rounded-full blur-md"></span>
-</span>
-{(idealStake > 0) && Number.isFinite(idealStake) && (
-          <CardSummary
-            className='media--1400'
-            label={t('ideal staked')}
-          >
-            <>{(idealStake * 100).toFixed(1)}{percent}</>
-          </CardSummary>
-        )}
-        {(stakedFraction > 0) && (
-          <CardSummary
-            className='media--1300'
-            label={t('staked')}
-          >
-            <>{(stakedFraction * 100).toFixed(1)}{percent}</>
-          </CardSummary>
-        )}
-        {(inflation > 0) && Number.isFinite(inflation) && (
-          <CardSummary
-            className='media--1200'
-            label={t('inflation')}
-          >
-            <>{inflation.toFixed(1)}{percent}</>
-          </CardSummary>
-        )}
-</a>
-
-
-      
-      {/* </span> */}
-      {/* <section style={{ background:"#C0C0C0", color:"#000000", borderRadius:"10px", padding:"25px"}}>
-        {(idealStake > 0) && Number.isFinite(idealStake) && (
-          <CardSummary
-            className='media--1400'
-            label={t('ideal staked')}
-          >
-            <>{(idealStake * 100).toFixed(1)}{percent}</>
-          </CardSummary>
-        )}
-        {(stakedFraction > 0) && (
-          <CardSummary
-            className='media--1300'
-            label={t('staked')}
-          >
-            <>{(stakedFraction * 100).toFixed(1)}{percent}</>
-          </CardSummary>
-        )}
-        {(inflation > 0) && Number.isFinite(inflation) && (
-          <CardSummary
-            className='media--1200'
-            label={t('inflation')}
-          >
-            <>{inflation.toFixed(1)}{percent}</>
-          </CardSummary>
-        )}
-      </section> */}
-      <section style={{ background:"#C0C0C0", color:"#000000", borderRadius:"10px", padding:"25px"}}>
-        <SummarySession />
+          </div>
+        </div>
       </section>
-    </StyledSummaryBox>
+
+      <section className="grid my-10 md:grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <div>
+          <samp className='flex'>
+          {(idealStake > 0) && Number.isFinite(idealStake) && (
+          <CardSummary
+            
+            label={t('ideal staked')}
+          >
+            <>{(idealStake * 100).toFixed(1)}{percent}</>
+          </CardSummary>
+        )}
+        {(stakedFraction > 0) && (
+          <CardSummary
+            
+            label={t('staked')}
+          >
+            <>{(stakedFraction * 100).toFixed(1)}{percent}</>
+          </CardSummary>
+        )}
+        {(inflation > 0) && Number.isFinite(inflation) && (
+          <CardSummary
+            
+            label={t('inflation')}
+          >
+            <>{inflation.toFixed(1)}{percent}</>
+          </CardSummary>
+        )}
+          </samp>
+          </div>
+        </div>
+        <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
+            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          
+          <SummarySession />
+          
+        </div>
+      </section>
+    </>
   );
 }
 

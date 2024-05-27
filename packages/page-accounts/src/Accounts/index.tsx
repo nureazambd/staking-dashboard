@@ -107,8 +107,7 @@ function Overview ({ className = '', onStatusChange }: Props): React.ReactElemen
   const delegations = useDelegations();
   const proxies = useProxies();
   const isNextTick = useNextTick();
- 
- 
+
   const onSortChange = useCallback(
     (sortBy: SortCategory) => setSortBy(({ sortFromMax }) => ({ sortBy, sortFromMax })),
     []
@@ -272,7 +271,6 @@ function Overview ({ className = '', onStatusChange }: Props): React.ReactElemen
   }, [accountsMap, balances, sortBy, sortFromMax]);
 
   console.log("balances.summary",balances);
-  console.log("api data", api);
   return (
     <StyledDiv className={className}>
       {isCreateOpen && (
