@@ -21,6 +21,8 @@ import type { ActionStatus } from '@polkadot/react-components/Status/types';
 import BalanceSummary from '../overview-balance/Accounts/BalanceSummary.js';
 import Payouts from '../Payouts/index.js';
 import OverviewHome from './Overview/OverviewHome.js';
+import ActiveValidator from './ActiveValidator.js';
+import MaxValidator from './MaxValidator.js';
 
 
 
@@ -105,7 +107,7 @@ function Overview ({ className = '', favorites, hasAccounts, hasQueries, minComm
       )}
 
 {/* balance and payment */}
-<section className="grid md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
+<section className="grid md:grid-cols-2 xl:grid-cols-3 xl:grid-rows-3 xl:grid-flow-col gap-6">
         <div className="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
           <div className="px-6 py-5 font-semibold border-b border-gray-100">Balance</div>
           <div className="p-4 flex-grow">
@@ -122,8 +124,9 @@ function Overview ({ className = '', favorites, hasAccounts, hasQueries, minComm
             </svg>
           </div>
           <div>
-            <span className="block text-2xl font-bold">25</span>
-            <span className="block text-gray-500">Lections left</span>
+            <span className="block text-2xl font-bold"><ActiveValidator stakingOverview={stakingOverview}
+        targets={targets}/></span>
+            <span className="block text-gray-500">Active Validators</span>
           </div>
         </div>
         <div className="flex items-center p-8 bg-white shadow rounded-lg">
@@ -133,11 +136,12 @@ function Overview ({ className = '', favorites, hasAccounts, hasQueries, minComm
             </svg>
           </div>
           <div>
-            <span className="block text-2xl font-bold">139</span>
-            <span className="block text-gray-500">Hours spent on lections</span>
+            <span className="block text-2xl font-bold"><MaxValidator stakingOverview={stakingOverview}
+        targets={targets}/></span>
+            <span className="block text-gray-500">Max Validators</span>
           </div>
         </div>
-        <div className="row-span-3 bg-white shadow rounded-lg">
+        <div className="row-span-3 bg-white shadow rounded-lg px-8">
           <div className="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
             <span>Payouts</span>
             <button type="button" className="inline-flex justify-center rounded-md px-1 -mr-1 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-600" id="options-menu" aria-haspopup="true" aria-expanded="true">
@@ -148,8 +152,9 @@ function Overview ({ className = '', favorites, hasAccounts, hasQueries, minComm
             </button>
             {/* <!-- Refer here for full dropdown menu code: https://tailwindui.com/components/application-ui/elements/dropdowns --> */}
           </div>
-          <div className="overflow-y-auto" style={{maxHeight: '24rem'}}>
-            <ul className="p-6 space-y-6">
+          {/* <div className="overflow-y-auto" style={{maxHeight: '34rem'}}> */}
+          <div className="overflow-y-auto" style={{maxHeight: '48rem'}}>
+            {/* <ul className="p-6 space-y-6">
               <li className="flex items-center">
                 <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
                   <img src="https://randomuser.me/api/portraits/women/82.jpg" alt="Annette Watson profile picture"/>
@@ -206,15 +211,172 @@ function Overview ({ className = '', favorites, hasAccounts, hasQueries, minComm
                 <span className="text-gray-600">Norman Walters</span>
                 <span className="ml-auto font-semibold">7.7</span>
               </li>
-            </ul>
+
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/79.jpg" alt="Bernard Murphy profile picture"/>
+                </div>
+                <span className="text-gray-600">Bernard Murphy</span>
+                <span className="ml-auto font-semibold">8.2</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/78.jpg" alt="Arlene Robertson profile picture"/>
+                </div>
+                <span className="text-gray-600">Arlene Robertson</span>
+                <span className="ml-auto font-semibold">8.2</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture"/>
+                </div>
+                <span className="text-gray-600">Jane Lane</span>
+                <span className="ml-auto font-semibold">8.1</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture"/>
+                </div>
+                <span className="text-gray-600">Pat Mckinney</span>
+                <span className="ml-auto font-semibold">7.9</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture"/>
+                </div>
+                <span className="text-gray-600">Norman Walters</span>
+                <span className="ml-auto font-semibold">7.7</span>
+              </li>
+
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/79.jpg" alt="Bernard Murphy profile picture"/>
+                </div>
+                <span className="text-gray-600">Bernard Murphy</span>
+                <span className="ml-auto font-semibold">8.2</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/78.jpg" alt="Arlene Robertson profile picture"/>
+                </div>
+                <span className="text-gray-600">Arlene Robertson</span>
+                <span className="ml-auto font-semibold">8.2</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture"/>
+                </div>
+                <span className="text-gray-600">Jane Lane</span>
+                <span className="ml-auto font-semibold">8.1</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture"/>
+                </div>
+                <span className="text-gray-600">Pat Mckinney</span>
+                <span className="ml-auto font-semibold">7.9</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture"/>
+                </div>
+                <span className="text-gray-600">Norman Walters</span>
+                <span className="ml-auto font-semibold">7.7</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture"/>
+                </div>
+                <span className="text-gray-600">Jane Lane</span>
+                <span className="ml-auto font-semibold">8.1</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture"/>
+                </div>
+                <span className="text-gray-600">Pat Mckinney</span>
+                <span className="ml-auto font-semibold">7.9</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture"/>
+                </div>
+                <span className="text-gray-600">Norman Walters</span>
+                <span className="ml-auto font-semibold">7.7</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture"/>
+                </div>
+                <span className="text-gray-600">Jane Lane</span>
+                <span className="ml-auto font-semibold">8.1</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture"/>
+                </div>
+                <span className="text-gray-600">Pat Mckinney</span>
+                <span className="ml-auto font-semibold">7.9</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture"/>
+                </div>
+                <span className="text-gray-600">Norman Walters</span>
+                <span className="ml-auto font-semibold">7.7</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture"/>
+                </div>
+                <span className="text-gray-600">Jane Lane</span>
+                <span className="ml-auto font-semibold">8.1</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture"/>
+                </div>
+                <span className="text-gray-600">Pat Mckinney</span>
+                <span className="ml-auto font-semibold">7.9</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture"/>
+                </div>
+                <span className="text-gray-600">Norman Walters</span>
+                <span className="ml-auto font-semibold">7.7</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/women/77.jpg" alt="Jane Lane profile picture"/>
+                </div>
+                <span className="text-gray-600">Jane Lane</span>
+                <span className="ml-auto font-semibold">8.1</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Pat Mckinney profile picture"/>
+                </div>
+                <span className="text-gray-600">Pat Mckinney</span>
+                <span className="ml-auto font-semibold">7.9</span>
+              </li>
+              <li className="flex items-center">
+                <div className="h-10 w-10 mr-3 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Norman Walters profile picture"/>
+                </div>
+                <span className="text-gray-600">Norman Walters</span>
+                <span className="ml-auto font-semibold">7.7</span>
+              </li>
+            </ul> */}
+            <Payouts ownValidators={[]}/>
           </div>
         </div>
-        <div className="flex flex-col row-span-3 bg-white shadow rounded-lg">
+        {/* <div className="flex flex-col row-span-3 bg-white shadow rounded-lg">
           <div className="px-6 py-5 font-semibold border-b border-gray-100">Payouts</div>
           <div className="p-4 flex-grow">
             <div className="flex items-center justify-center h-full px-4 py-24 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">Chart</div>
           </div>
-        </div>
+        </div> */}
       </section>
       
 
